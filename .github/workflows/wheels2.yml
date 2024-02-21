@@ -8,7 +8,7 @@ on:
     inputs:
       cibw_build:
         description: 'CIBW_BUILD'
-        default: '*'
+        default: 'cp310*'
       cibw_skip:
         description: 'CIBW_SKIP'
         # To limit the number of builds, skip most of musl-based versions,
@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         #os: [ubuntu-22.04, windows-2022, macos-13, macos-14]
-        os: [macos-12]
+        os: [macos-11]
 
     steps:
     - uses: actions/checkout@v4
@@ -71,9 +71,12 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: cibw-wheels
-          path: cibw-wheels
+          path: wheels
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.py }}
-      - run: python -m pip install --find-links=cibw-wheels gemmi
-      - run: python -m unittest discover -s tests -v
+      - run: |
+        ls -R wheels
+        python --version
+        python -m pip install --no-index --find-links=wheels gemmi
+        python -m unittest discover -s tests -v
