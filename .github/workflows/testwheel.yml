@@ -35,6 +35,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.inputs.runid }}
           path: wheels
+          merge-multiple: true
       - run: |
           ls -R wheels
           python -m pip install --no-index --find-links=wheels gemmi
