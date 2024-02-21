@@ -35,7 +35,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.inputs.runid }}
           path: wheels
-      - run: python -m pip install --no-index --find-links=wheels gemmi
+      - run: |
+          ls -R wheels
+          python -m pip install --no-index --find-links=wheels gemmi
         if: ${{ github.event.inputs.runid != '' }}
 
       - run: python -m unittest discover -s tests -v
