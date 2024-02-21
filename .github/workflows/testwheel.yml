@@ -12,10 +12,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04,
-             windows-latest,
-             macos-11, macos-12, macos-13, macos-14]
-        py: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        #os: [ubuntu-20.04, ubuntu-22.04,
+        #     windows-latest,
+        #     macos-11, macos-12, macos-13, macos-14]
+        #py: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        os: [macos-13]
+        py: ['3.10']
     name: ${{ matrix.os }} py${{ matrix.py }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -30,7 +32,7 @@ jobs:
       - uses: actions/download-artifact@v4
         if: ${{ github.event.inputs.runid != '' }}
         with:
-          github-token: ${{ secrets.GH_PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.inputs.runid }}
           path: wheels
       - run: python -m pip install --no-index --find-links=wheels gemmi
