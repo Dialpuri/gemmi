@@ -76,7 +76,7 @@ jobs:
         with:
           python-version: ${{ matrix.py }}
       - run: |
-        ls -R wheels
-        python --version
-        python -m pip install --no-index --find-links=wheels gemmi
-        python -m unittest discover -s tests -v
+          ls -R wheels
+          python --version
+          python -m pip install --no-index --find-links=wheels gemmi
+          python -m unittest discover -s tests -v
